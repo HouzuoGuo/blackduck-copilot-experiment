@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+    steps:
+      - checkout
+      - run: mvn dependency:go-offline
+      - run: mvn compile
+      - deploy:
+          command: bash <(curl -s https://copilot.blackducksoftware.com/ci/circle2/scripts/upload)
